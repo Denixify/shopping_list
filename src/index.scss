@@ -25,6 +25,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   overscroll-behavior-y: none;
+  touch-action: manipulation;
 }
 
 .app {
@@ -57,9 +58,29 @@ body {
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 28px;
     margin-top: 16px;
     padding-bottom: 40px;
+  }
+}
+
+.category-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 6px;
+    letter-spacing: -0.2px;
+    opacity: 0.95;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 }
 
@@ -136,22 +157,13 @@ body {
     gap: 6px;
     padding-right: 8px;
 
-    span:not(.category-badge) {
+    span {
       font-size: 17px;
       font-weight: 500;
       word-break: break-word;
       overflow-wrap: break-word;
       transition: color 0.3s ease;
     }
-  }
-
-  .category-badge {
-    align-self: flex-start;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 6px;
-    letter-spacing: 0.2px;
   }
 
   input {
@@ -198,7 +210,7 @@ body {
       }
     }
 
-    .item-content span:not(.category-badge) {
+    .item-content span {
       color: var(--text-muted);
       font-style: italic;
       text-decoration: line-through;
@@ -246,8 +258,7 @@ body {
     button {
       background: transparent;
       border: none;
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 15px;
       padding: 6px 10px;
       border-radius: 8px;
       cursor: pointer;
@@ -260,12 +271,10 @@ body {
       }
 
       &:first-child {
-        color: var(--accent-blue);
         background: rgba(0, 122, 255, 0.1);
       }
 
       &:last-child {
-        color: var(--accent-red);
         background: rgba(255, 59, 48, 0.1);
       }
     }

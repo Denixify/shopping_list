@@ -6,22 +6,24 @@ import type { ShoppingItemType } from "../types";
 
 export const ShoppingInput: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
-  const [category, setCategory] = useState<ShoppingItemType["category"]>("etc");
+  const [category, setCategory] = useState<ShoppingItemType["category"] | "">(
+    "",
+  );
 
   const dispatch = useDispatch();
   const shoppingArray = useSelector((state: RootState) => state.shopping.items);
 
   const handleAdd = () => {
-    if (inputValue.trim().length !== 0) {
+    if (inputValue.trim().length !== 0 && category !== "") {
       dispatch(
         addItem({
           title: inputValue,
-          category: category,
+          category: category as ShoppingItemType["category"],
         }),
       );
 
       setInputValue("");
-      setCategory("etc");
+      setCategory("");
     }
   };
 
@@ -43,9 +45,12 @@ export const ShoppingInput: React.FC = () => {
         className="shopping-form__select"
         value={category}
         onChange={(e) =>
-          setCategory(e.target.value as ShoppingItemType["category"])
+          setCategory(e.target.value as ShoppingItemType["category"] | "")
         }
       >
+        <option value="" disabled>
+          Выберите категорию
+        </option>
         <option value="vegetables">Овощи</option>
         <option value="fruits">Фрукты</option>
         <option value="meat">Мясо</option>

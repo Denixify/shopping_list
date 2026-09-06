@@ -1,11 +1,17 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "./store/store";
+import type { ShoppingItemType } from "./types";
+import { CATEGORY_CONFIG } from "./utils/categories";
 
 import { ShoppingInput } from "./components/ShoppingInput";
 import { ShoppingItem } from "./components/ShoppingItem";
 
 function App() {
   const items = useSelector((state: RootState) => state.shopping.items);
+
+  const categoryKeys = Object.keys(CATEGORY_CONFIG) as Array<
+    ShoppingItemType["category"]
+  >;
 
   return (
     <div className="app">
@@ -23,9 +29,30 @@ function App() {
         )}
 
         <div className="app__list">
-          {items.map((item) => (
-            <ShoppingItem key={item.id} item={item} />
-          ))}
+          {categoryKeys.map((key) => {
+            const categoryItems = items.filter((item) => item.category === key);
+
+            if (categoryItems.length === 0) return null;
+
+            const categoryInfo = CATEGORY_CONFIG[key];
+
+            return (
+              <div key={key} className="category-group">
+                <h2
+                  className="category-group__title"
+                  style={{ color: categoryInfo.color }}
+                >
+                  {categoryInfo.label}
+                </h2>
+
+                <div className="category-group__items">
+                  {categoryItems.map((item) => (
+                    <ShoppingItem key={item.id} item={item} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </main>
     </div>
