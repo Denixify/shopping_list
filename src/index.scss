@@ -31,7 +31,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  // env(safe-area-inset-*)
   padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom) 16px;
   max-width: 600px;
   margin: 0 auto;
@@ -47,11 +46,19 @@ body {
     }
   }
 
+  &__summary {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 16px;
+    font-weight: 500;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 24px;
+    margin-top: 16px;
     padding-bottom: 40px;
   }
 }
@@ -126,14 +133,15 @@ body {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
     padding-right: 8px;
 
-    span {
+    span:not(.category-badge) {
       font-size: 17px;
       font-weight: 500;
       word-break: break-word;
       overflow-wrap: break-word;
+      transition: color 0.3s ease;
     }
   }
 
@@ -141,20 +149,9 @@ body {
     align-self: flex-start;
     font-size: 11px;
     font-weight: 600;
-    padding: 2px 8px;
+    padding: 3px 8px;
     border-radius: 6px;
     letter-spacing: 0.2px;
-  }
-
-  span {
-    flex: 1;
-    min-width: 0;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    font-size: 17px;
-    font-weight: 500;
-    position: relative;
-    padding-right: 8px;
   }
 
   input {
@@ -169,7 +166,6 @@ body {
     margin-right: 8px;
   }
 
-  // Вот здесь, на уровне item-container, размещаем кнопку сохранения:
   .save-btn {
     flex-shrink: 0;
     background-color: var(--accent-blue);
@@ -202,7 +198,7 @@ body {
       }
     }
 
-    span {
+    .item-content span:not(.category-badge) {
       color: var(--text-muted);
       font-style: italic;
       text-decoration: line-through;

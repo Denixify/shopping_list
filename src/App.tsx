@@ -16,6 +16,12 @@ function App() {
       <main className="app__main">
         <ShoppingInput />
 
+        {items.length > 0 && (
+          <div className="app__summary">
+            Всего позиций в списке: {items.length}
+          </div>
+        )}
+
         <div className="app__list">
           {items.map((item) => (
             <ShoppingItem key={item.id} item={item} />
