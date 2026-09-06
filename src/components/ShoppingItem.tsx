@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { ShoppingItemType } from "../types";
 import { useDispatch } from "react-redux";
 import { toggleBought, deleteItem, editItem } from "../store/shoppingSlice";
+import { CATEGORY_CONFIG } from "../utils/categories"; // Импортируем наш конфиг
 
 interface Props {
   item: ShoppingItemType;
@@ -23,6 +24,9 @@ export const ShoppingItem: React.FC<Props> = ({ item }) => {
     setIsEditing(false);
   };
 
+  // Получаем данные текущей категории (название и цвет)
+  const categoryInfo = CATEGORY_CONFIG[item.category] || CATEGORY_CONFIG.etc;
+
   return (
     <div
       className={`item-container ${item.isBought ? "bought-item" : "unbought-item"}`}
@@ -43,15 +47,30 @@ export const ShoppingItem: React.FC<Props> = ({ item }) => {
           </button>
         </>
       ) : (
-        <>
+        <div className="item-content">
           <span>{item.title}</span>
-
-          <div className="actions">
-            <button onClick={() => setIsEditing(true)}>✏</button>
-            <button onClick={() => dispatch(deleteItem(item.id))}>🚮</button>
-          </div>
-        </>
+          <span
+            className="category-badge"
+            style={{
+              backgroundColor: `${categoryInfo.color}15`,
+              color: categoryInfo.color,
+            }}
+          >
+            {categoryInfo.label}
+          </span>
+        </div>
       )}
+
+      <div className="actions">
+        {!isEditing && (
+          <>
+            <button onClick={() => setIsEditing(true)}>✏</button>
+            <button onClick={() => dispatch(deleteItem(item.id))}>
+              🚮
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

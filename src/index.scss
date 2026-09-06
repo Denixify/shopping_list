@@ -121,6 +121,31 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: slideIn 0.3s ease-out forwards;
 
+  .item-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-right: 8px;
+
+    span {
+      font-size: 17px;
+      font-weight: 500;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+  }
+
+  .category-badge {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.2px;
+  }
+
   span {
     flex: 1;
     min-width: 0;
@@ -133,14 +158,35 @@ body {
   }
 
   input {
-    flex-grow: 1;
-    min-width: 195px;
-    padding: 8px 12px;
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
     font-size: 16px;
     border: 1px solid var(--accent-blue);
     border-radius: 8px;
     outline: none;
-    background: #fff;
+    background: var(--bg-color);
+    margin-right: 8px;
+  }
+
+  // Вот здесь, на уровне item-container, размещаем кнопку сохранения:
+  .save-btn {
+    flex-shrink: 0;
+    background-color: var(--accent-blue);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      transform 0.1s ease,
+      background-color 0.2s ease;
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   &.bought-item {
@@ -212,10 +258,6 @@ body {
       transition:
         background 0.2s ease,
         transform 0.1s ease;
-
-      &.save-btn {
-        flex-shrink: 0;
-      }
 
       &:active {
         transform: scale(0.9);
